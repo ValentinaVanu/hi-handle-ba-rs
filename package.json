@@ -1,0 +1,12 @@
+{
+  "name": "hi-handle-ba-rs",
+  "scripts": {
+    "start": "npx live-server --open=web"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  }
+}

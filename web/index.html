@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hi HandleBars</title>
+</head>
+<body>
+  <h1>This is it!</h1>
+  <div class="post-list"></div>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  <script>
+    let postList
+    try {
+      const getResult = async () => {
+        const r = await fetch(`https://jsonplaceholder.typicode.com/posts`)
+        postList = await r.json()
+        console.log(postList)
+        const address = {
+          city: 'London',
+          street: 'Wandsworth Road'
+        }
+        const name = 'Jesus'
+        Handlebars.registerHelper(
+          /* 1st argument */
+          'aaah',
+          /* 2nd argument */
+          gigi => String(gigi).toUpperCase()
+        )
+        const template = Handlebars.compile(`
+          <h1>List of posts</h1>
+          <div>
+            {{#with address}}
+              {{aaah city}} - {{aaah street}}
+            {{/with}}
+          </div>
+          <hr />
+          {{#each postList}}
+            <div>
+              <h2>{{aaah this.title}}</h2>
+              <p>{{this.body}}</p>
+            </div>
+          {{/each}}
+        `)
+        document.querySelector('.post-list').innerHTML = template({ postList, address })
+      }
+      getResult()
+    } catch (error) {
+      postList = []
+      console.log(`Error:`, error)
+    }
+    console.log(postList)
+  </script>
+</body>
+</html>
